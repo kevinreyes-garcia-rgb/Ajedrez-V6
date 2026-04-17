@@ -3,96 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajedrez Pro - Agnes vs Rick</title>
+    <title>Ajedrez Pro</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="game-container">
-        <div id="start-screen" class="screen active">
-            <div class="logo">
-                <h1>♔ AJEDREZ PRO ♚</h1>
-                <p class="subtitle">Elige tu oponente</p>
+    <div id="start-screen" class="screen active">
+        <h1 style="text-align:center; color:#f39c12; font-size:3rem;">♔ AJEDREZ PRO ♚</h1>
+        <p style="text-align:center; color:white; font-size:1.5rem;">Elige tu oponente</p>
+        <div style="display:flex; gap:20px; justify-content:center; margin-top:30px;">
+            <div onclick="selectCharacter('agnes')" style="background:rgba(255,255,255,0.1); padding:30px; border-radius:20px; cursor:pointer; text-align:center; color:white;">
+                <div style="font-size:4rem;">👑</div>
+                <h2>Agnes</h2>
+                <p>La Estratega</p>
             </div>
-            <div class="character-select">
-                <div class="character-card" onclick="selectCharacter('agnes')">
-                    <div class="character-avatar agnes-avatar">👑</div>
-                    <h2>Agnes</h2>
-                    <p class="character-desc">La Estratega</p>
-                    <div class="difficulties">
-                        <span class="difficulty-tag easy">Fácil</span>
-                        <span class="difficulty-tag medium">Normal</span>
-                        <span class="difficulty-tag hard">Difícil</span>
-                        <span class="difficulty-tag extreme">Extremo</span>
-                        <span class="difficulty-tag mega">Mega Extremo</span>
-                    </div>
-                    <p class="character-info">Maestra del ajedrez. En Mega Extremo, nunca pierde.</p>
-                </div>
-                <div class="character-card" onclick="selectCharacter('rick')">
-                    <div class="character-avatar rick-avatar">🤠</div>
-                    <h2>Rick</h2>
-                    <p class="character-desc">El Jugador Casual</p>
-                    <div class="difficulties">
-                        <span class="difficulty-tag easy">Fácil</span>
-                        <span class="difficulty-tag medium">Normal</span>
-                        <span class="difficulty-tag hard">Difícil</span>
-                        <span class="difficulty-tag extreme">Extremo</span>
-                    </div>
-                    <p class="character-info">Jugador entusiasta. Perfecto para practicar.</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="difficulty-screen" class="screen">
-            <h2 id="selected-character-name">Elige dificultad</h2>
-            <div class="difficulty-buttons" id="difficulty-container"></div>
-            <button class="back-btn" onclick="goBack()">← Volver</button>
-        </div>
-
-        <div id="game-screen" class="screen">
-            <div class="game-header">
-                <div class="player-info black">
-                    <span id="black-name">Oponente</span>
-                    <span id="black-timer">10:00</span>
-                </div>
-                <div class="captured-pieces" id="captured-black"></div>
-            </div>
-            <div class="board-container">
-                <div id="board" class="board"></div>
-                <div id="promotion-modal" class="modal hidden">
-                    <h3>Promoción</h3>
-                    <div class="promotion-options">
-                        <button onclick="promotePawn('q')">♕</button>
-                        <button onclick="promotePawn('r')">♖</button>
-                        <button onclick="promotePawn('b')">♗</button>
-                        <button onclick="promotePawn('n')">♘</button>
-                    </div>
-                </div>
-            </div>
-            <div class="game-footer">
-                <div class="captured-pieces" id="captured-white"></div>
-                <div class="player-info white">
-                    <span id="white-name">Tú</span>
-                    <span id="white-timer">10:00</span>
-                </div>
-            </div>
-            <div class="game-controls">
-                <button onclick="resign()">Rendirse</button>
-                <button onclick="offerDraw()">Ofrecer tablas</button>
-                <button onclick="restartGame()">Nueva partida</button>
-            </div>
-            <div id="status-message" class="status-message"></div>
-        </div>
-
-        <div id="end-screen" class="screen">
-            <div class="end-content">
-                <h1 id="end-title">¡Juego Terminado!</h1>
-                <p id="end-message"></p>
-                <button onclick="returnToMenu()">Menú Principal</button>
-                <button onclick="rematch()">Revancha</button>
+            <div onclick="selectCharacter('rick')" style="background:rgba(255,255,255,0.1); padding:30px; border-radius:20px; cursor:pointer; text-align:center; color:white;">
+                <div style="font-size:4rem;">🤠</div>
+                <h2>Rick</h2>
+                <p>El Casual</p>
             </div>
         </div>
     </div>
+
+    <div id="difficulty-screen" class="screen">
+        <h2 id="diff-title" style="text-align:center; color:white;"></h2>
+        <div id="diff-buttons" style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px;"></div>
+        <button onclick="goBack()" style="display:block; margin:20px auto; padding:10px 20px;">← Volver</button>
+    </div>
+
+    <div id="game-screen" class="screen">
+        <div style="text-align:center; color:white; margin-bottom:10px;">
+            <span id="status">Tu turno</span>
+        </div>
+        <div id="board" style="display:grid; grid-template-columns:repeat(8,60px); gap:0; margin:0 auto; width:480px; border:3px solid #333;"></div>
+        <div style="text-align:center; margin-top:20px;">
+            <button onclick="resetGame()">Reiniciar</button>
+        </div>
+    </div>
+
     <script src="js/chess-engine.js"></script>
     <script src="js/ai.js"></script>
     <script src="js/game.js"></script>
